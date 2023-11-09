@@ -1,8 +1,14 @@
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Home from "../routes/Home";
+import Detail from "../routes/Detail";
+
 function App() {
   return (
-    <div className="App">
-      <h1>APP</h1>
-    </div>
+    <Routes>
+      <Route path="/" exact element={<Home />} />
+      <Route path="/:id" element={<Detail />} />
+    </Routes>
   );
 }
 
