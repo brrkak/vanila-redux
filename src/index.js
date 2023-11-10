@@ -4,6 +4,13 @@ import App from "./components/App";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+import { legacy_createStore as createStore } from "redux";
+import { rootReducer } from "./reducers";
+
+const persistor = persistStore(store);
+const store = createStore(rootReducer);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

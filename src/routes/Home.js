@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { actionCreators } from "../store";
+import { actionCreators } from "../reducers/index";
 import ToDo from "../components/ToDo";
 // store.js에 export한 actionCreators를 import시킴
 

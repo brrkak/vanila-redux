@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { actionCreators } from "../store";
+import { actionCreators } from "../reducers/index";
 import { Link } from "react-router-dom";
 
 //  useDispatch를 이용하여 deleteToDo기능 만들기

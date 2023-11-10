@@ -1,4 +1,5 @@
-import { legacy_createStore as createStore } from "redux";
+import storage from "redux-persist/lib/storage";
+import { persistReducer } from "redux-persist";
 
 const ADD = "ADD";
 const DELETE = "DELETE";
@@ -17,7 +18,10 @@ const deleteToDo = (id) => {
     id,
   };
 };
-
+const persistConfig = {
+  key: "todo", //localStorage에 저장될 key값
+  storage: storageSession,
+};
 // state 초기값을 "hello"
 const reducer = (state = [], action) => {
   switch (action.type) {
@@ -28,13 +32,4 @@ const reducer = (state = [], action) => {
     default:
       return state;
   }
-};
-
-const store = createStore(reducer);
-
-//actionCreators 함수를 만들어 export 시킴.
-export default store;
-export const actionCreators = {
-  addToDo,
-  deleteToDo,
 };
