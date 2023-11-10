@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { actionCreators } from "../reducers/index";
+import { actionCreators } from "../store";
 import ToDo from "../components/ToDo";
 // store.js에 export한 actionCreators를 import시킴
 
 // props를 toDos라고 지정
 const Home = ({ toDos, addToDo }) => {
   const [text, setText] = useState("");
+
   const onChange = (e) => {
     setText(e.target.value);
   };
@@ -18,7 +19,7 @@ const Home = ({ toDos, addToDo }) => {
     // props의 addToDo를 action
     setText("");
   };
-
+  console.log(toDos);
   return (
     <div>
       <h1>To Do</h1>
@@ -27,7 +28,7 @@ const Home = ({ toDos, addToDo }) => {
         <button>Add</button>
       </form>
       <ul>
-        {toDos.map((toDo) => (
+        {toDos.reducer.map((toDo) => (
           <ToDo {...toDo} key={toDo.id} />
         ))}
       </ul>

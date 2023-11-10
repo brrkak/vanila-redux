@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { actionCreators } from "../reducers/index";
+import { actionCreators } from "../store";
 import { Link } from "react-router-dom";
 
 //  useDispatch를 이용하여 deleteToDo기능 만들기
@@ -10,6 +10,7 @@ const ToDo = ({ text, id }) => {
   const onClick = () => {
     dispatch(actionCreators.deleteToDo(id));
   };
+
   return (
     <li>
       <Link to={`/${id}`}>{text}</Link>
