@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { actionCreators } from "../store";
+import { add } from "../slice/toDosSlice";
 import ToDo from "../components/ToDo";
 // store.js에 export한 actionCreators를 import시킴
 
@@ -19,7 +19,7 @@ const Home = ({ toDos, addToDo }) => {
     // props의 addToDo를 action
     setText("");
   };
-  console.log(toDos);
+  console.log(toDos.toDos);
   return (
     <div>
       <h1>To Do</h1>
@@ -28,7 +28,7 @@ const Home = ({ toDos, addToDo }) => {
         <button>Add</button>
       </form>
       <ul>
-        {toDos.reducer.map((toDo) => (
+        {toDos.toDos.map((toDo) => (
           <ToDo {...toDo} key={toDo.id} />
         ))}
       </ul>
@@ -45,7 +45,7 @@ const mapStateToProps = (state) => {
 // addToDo를 dispatch해서 action으로 보냄
 const mapDispatchToProps = (dispatch) => {
   return {
-    addToDo: (text) => dispatch(actionCreators.addToDo(text)),
+    addToDo: (text) => dispatch(add(text)),
   };
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { actionCreators } from "../store";
+import { remove } from "../slice/toDosSlice";
 import { Link } from "react-router-dom";
 
 //  useDispatch를 이용하여 deleteToDo기능 만들기
@@ -8,7 +8,7 @@ const ToDo = ({ text, id }) => {
   //  props에 store.js에 있는 deleteToDo의 id를 정의
   const dispatch = useDispatch();
   const onClick = () => {
-    dispatch(actionCreators.deleteToDo(id));
+    dispatch(remove(id));
   };
 
   return (

@@ -1,50 +1,38 @@
-import { combineReducers, legacy_createStore as createStore } from "redux";
+import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
-import { persistReducer } from "redux-persist";
-import { createAction } from "redux-toolkit";
-
-const ADD = "ADD";
-const DELETE = "DELETE";
+import {
+  persistReducer,
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import toDosSlice from "./slice/toDosSlice";
 
 const persistConfig = {
   key: "todo",
-  storage: storage,
+  storage,
 };
 
-const addToDo = (text) => {
-  return {
-    type: ADD,
-    text,
-    id: Date.now(),
-  };
-};
-
-const deleteToDo = (id) => {
-  return {
-    type: DELETE,
-    id,
-  };
-};
-
-// state 초기값을 "hello"
-const reducer = (state = [], action) => {
-  switch (action.type) {
-    case ADD:
-      return [{ text: action.text, id: action.id }, ...state];
-    case DELETE:
-      return state.filter((toDo) => toDo.id !== action.id);
-    default:
-      return state;
-  }
-};
-
-export const actionCreators = {
-  addToDo,
-  deleteToDo,
-};
-
-const allReducer = combineReducers({
-  reducer,
+const rootReducer = combineReducers({
+  toDos: toDosSlice,
 });
-const store = createStore(persistReducer(persistConfig, allReducer));
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
+
+export const persistor = persistStore(store);
 export default store;
